@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鹈鹕骑自行车</title>
+<style>
+  body {
+    margin: 0;
+    background: linear-gradient(180deg, #87CEEB 0%, #B0E0FF 60%, #90EE90 60%, #228B22 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  svg {
+    width: 100vw;
+    height: 100vh;
+  }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Sky clouds -->
+  <g opacity="0.8">
+    <ellipse cx="100" cy="80" rx="60" ry="30" fill="white"/>
+    <ellipse cx="140" cy="70" rx="50" ry="25" fill="white"/>
+    <ellipse cx="80" cy="75" rx="40" ry="20" fill="white"/>
+    <ellipse cx="600" cy="60" rx="70" ry="30" fill="white"/>
+    <ellipse cx="650" cy="50" rx="55" ry="25" fill="white"/>
+    <ellipse cx="570" cy="65" rx="45" ry="20" fill="white"/>
+  </g>
+
+  <!-- Sun -->
+  <circle cx="720" cy="80" r="45" fill="#FFD700" opacity="0.9"/>
+  <g stroke="#FFD700" stroke-width="3" opacity="0.7">
+    <line x1="720" y1="20" x2="720" y2="5"/>
+    <line x1="720" y1="140" x2="720" y2="155"/>
+    <line x1="660" y1="80" x2="645" y2="80"/>
+    <line x1="780" y1="80" x2="795" y2="80"/>
+    <line x1="678" y1="38" x2="667" y2="27"/>
+    <line x1="762" y1="122" x2="773" y2="133"/>
+    <line x1="762" y1="38" x2="773" y2="27"/>
+    <line x1="678" y1="122" x2="667" y2="133"/>
+  </g>
+
+  <!-- Road -->
+  <rect x="0" y="370" width="800" height="130" fill="#888"/>
+  <g stroke="white" stroke-width="4" stroke-dasharray="40,30" opacity="0.6">
+    <line x1="0" y1="420" x2="800" y2="420"/>
+  </g>
+
+  <!-- Grass -->
+  <rect x="0" y="300" width="800" height="75" fill="#4CAF50" opacity="0.8"/>
+
+  <!-- Speed lines (static, behind rider) -->
+  <g id="speedLines" stroke="#aaa" stroke-width="2" opacity="0.5">
+    <line x1="50" y1="310" x2="150" y2="310"/>
+    <line x1="30" y1="330" x2="120" y2="330"/>
+    <line x1="60" y1="350" x2="140" y2="350"/>
+  </g>
+
+  <!-- ======= ANIMATED RIDER GROUP ======= -->
+  <g id="rider">
+
+    <!-- BICYCLE -->
+    <!-- Rear wheel rim -->
+    <circle cx="290" cy="340" r="55" fill="none" stroke="#333" stroke-width="6"/>
+    <circle cx="290" cy="340" r="8" fill="#555"/>
+    <!-- Rear spokes (ID for JS) -->
+    <g id="rearSpokes">
+      <line x1="290" y1="285" x2="290" y2="395"/>
+      <line x1="235" y1="340" x2="345" y2="340"/>
+      <line x1="251" y1="301" x2="329" y2="379"/>
+      <line x1="329" y1="301" x2="251" y2="379"/>
+    </g>
+
+    <!-- Front wheel rim -->
+    <circle cx="480" cy="340" r="55" fill="none" stroke="#333" stroke-width="6"/>
+    <circle cx="480" cy="340" r="8" fill="#555"/>
+    <!-- Front spokes (ID for JS) -->
+    <g id="frontSpokes">
+      <line x1="480" y1="285" x2="480" y2="395"/>
+      <line x1="425" y1="340" x2="535" y2="340"/>
+      <line x1="441" y1="301" x2="519" y2="379"/>
+      <line x1="519" y1="301" x2="441" y2="379"/>
+    </g>
+
+    <!-- Frame -->
+    <line x1="290" y1="340" x2="370" y2="295" stroke="#E44" stroke-width="7" stroke-linecap="round"/>
+    <line x1="370" y1="295" x2="450" y2="260" stroke="#E44" stroke-width="7" stroke-linecap="round"/>
+    <line x1="370" y1="295" x2="480" y2="340" stroke="#E44" stroke-width="7" stroke-linecap="round"/>
+    <line x1="370" y1="295" x2="370" y2="235" stroke="#E44" stroke-width="7" stroke-linecap="round"/>
+    <line x1="450" y1="260" x2="480" y2="340" stroke="#E44" stroke-width="7" stroke-linecap="round"/>
+    <line x1="290" y1="340" x2="370" y2="235" stroke="#E44" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Seat -->
+    <ellipse cx="365" cy="228" rx="28" ry="9" fill="#333"/>
+    <rect x="363" y="228" width="5" height="10" fill="#555"/>
+
+    <!-- Handlebar -->
+    <line x1="450" y1="260" x2="455" y2="235" stroke="#333" stroke-width="6" stroke-linecap="round"/>
+    <line x1="440" y1="235" x2="470" y2="235" stroke="#333" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- Pedal crank (CSS animated, transform-origin set via JS) -->
+    <g id="crank">
+      <line x1="370" y1="295" x2="390" y2="320" stroke="#333" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="390" cy="320" r="6" fill="#555"/>
+    </g>
+
+    <!-- PELICAN BODY -->
+    <ellipse cx="370" cy="195" rx="55" ry="45" fill="#F5F5DC" stroke="#DDD" stroke-width="1"/>
+
+    <!-- Wing left (behind) -->
+    <ellipse cx="330" cy="200" rx="25" ry="15" fill="#E8E8D0" transform="rotate(-20, 330, 200)"/>
+
+    <!-- Wing right (front, animated flap) -->
+    <g id="wingRight">
+      <ellipse cx="415" cy="195" rx="30" ry="12" fill="#E8E8D0" transform="rotate(15, 415, 195)"/>
+    </g>
+
+    <!-- Neck -->
+    <ellipse cx="415" cy="155" rx="18" ry="30" fill="#F5F5DC" stroke="#DDD" stroke-width="1"/>
+
+    <!-- Head -->
+    <circle cx="420" cy="120" r="28" fill="#F5F5DC" stroke="#DDD" stroke-width="1"/>
+
+    <!-- Beak upper -->
+    <path d="M 435 118 Q 490 112 500 125 Q 490 130 435 128 Z" fill="#FF8C00" stroke="#E07000" stroke-width="1"/>
+    <!-- Beak pouch -->
+    <path d="M 435 126 Q 490 130 498 138 Q 490 150 435 145 Z" fill="#FFA040" stroke="#E07000" stroke-width="1"/>
+    <path d="M 440 130 Q 470 135 490 138" stroke="#E07000" stroke-width="1" fill="none" opacity="0.5"/>
+    <path d="M 440 135 Q 470 140 488 142" stroke="#E07000" stroke-width="1" fill="none" opacity="0.5"/>
+
+    <!-- Eye -->
+    <circle cx="432" cy="114" r="7" fill="white"/>
+    <circle cx="434" cy="114" r="4" fill="#222"/>
+    <circle cx="436" cy="112" r="1.5" fill="white"/>
+
+    <!-- Head color patch -->
+    <path d="M 400 100 Q 420 90 440 95 Q 445 108 435 115 Q 415 118 400 110 Z" fill="#FFD700" opacity="0.5"/>
+
+    <!-- Legs -->
+    <g id="legs">
+      <line x1="355" y1="238" x2="345" y2="275" stroke="#FF8C00" stroke-width="5" stroke-linecap="round"/>
+      <line x1="345" y1="275" x2="335" y2="295" stroke="#FF8C00" stroke-width="4" stroke-linecap="round"/>
+      <line x1="375" y1="238" x2="383" y2="272" stroke="#FF8C00" stroke-width="5" stroke-linecap="round"/>
+      <line x1="383" y1="272" x2="390" y2="295" stroke="#FF8C00" stroke-width="4" stroke-linecap="round"/>
+    </g>
+
+    <!-- Webbed feet -->
+    <path d="M 325 295 Q 318 305 330 308 Q 335 300 345 303 Q 348 310 358 307 Q 355 295 335 295 Z" fill="#FF8C00"/>
+    <path d="M 382 295 Q 375 305 387 308 Q 392 300 402 303 Q 405 310 415 307 Q 412 295 392 295 Z" fill="#FF8C00"/>
+
+  </g>
+  <!-- ======= END RIDER ======= -->
+
+  <!-- Label -->
+  <text x="400" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="white" opacity="0.8">🦩 鹈鹕快递员 · 送风不送货</text>
+
+  <style>
+    /* Rider: right-to-left loop */
+    #rider {
+      animation: rideAcross 5s linear infinite;
+    }
+    @keyframes rideAcross {
+      0%   { transform: translateX(800px); }
+      100% { transform: translateX(-700px); }
+    }
+
+    /* Wing flap */
+    #wingRight {
+      transform-box: fill-box;
+      transform-origin: left center;
+      animation: flapWing 0.4s ease-in-out infinite alternate;
+    }
+    @keyframes flapWing {
+      from { transform: rotate(-10deg); }
+      to   { transform: rotate(25deg); }
+    }
+
+    /* Body bob */
+    #rider ellipse[rx="55"] {
+      transform-box: fill-box;
+      transform-origin: center center;
+      animation: bodyBob 0.5s ease-in-out infinite alternate;
+    }
+    @keyframes bodyBob {
+      from { transform: translateY(0px); }
+      to   { transform: translateY(-4px); }
+    }
+
+    /* Speed lines drift */
+    #speedLines {
+      animation: speedMove 0.3s linear infinite;
+    }
+    @keyframes speedMove {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-30px); }
+    }
+  </style>
+
+  <script>
+    // Wheel spokes spin around their own hub
+    function spinGroup(groupId, cx, cy, speed) {
+      const g = document.getElementById(groupId);
+      let angle = 0;
+      function tick() {
+        angle = (angle + speed) % 360;
+        g.setAttribute('transform', `rotate(${angle}, ${cx}, ${cy})`);
+        requestAnimationFrame(tick);
+      }
+      tick();
+    }
+    spinGroup('rearSpokes',  290, 340, 4);
+    spinGroup('frontSpokes', 480, 340, 4);
+
+    // Crank rotates around bottom bracket (370, 295)
+    const crank = document.getElementById('crank');
+    let crankAngle = 0;
+    function spinCrank() {
+      crankAngle = (crankAngle + 4) % 360;
+      crank.setAttribute('transform', `rotate(${crankAngle}, 370, 295)`);
+      requestAnimationFrame(spinCrank);
+    }
+    spinCrank();
+  </script>
+
+</svg>
+</body>
+</html>
