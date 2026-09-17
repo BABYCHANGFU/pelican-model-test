@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>鹈鹕骑单车</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; overflow: hidden; }
+    body {
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 50% 8%, #2c6283 0, #123149 43%, #071522 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    }
+    svg { width: min(96vw, 960px); height: auto; filter: drop-shadow(0 24px 35px rgba(0,0,0,.32)); }
+    .cloud { animation: drift 18s linear infinite; }
+    .cloud.slow { animation-duration: 28s; animation-direction: reverse; opacity: .65; }
+    .wheel { transform-box: fill-box; transform-origin: center; animation: spin 1.05s linear infinite; }
+    .pedal-arm { transform-box: fill-box; transform-origin: center; animation: pedal 1.05s linear infinite; }
+    .leg-back { transform-box: fill-box; transform-origin: 50% 8%; animation: legBack 1.05s ease-in-out infinite; }
+    .leg-front { transform-box: fill-box; transform-origin: 50% 8%; animation: legFront 1.05s ease-in-out infinite; }
+    .pelican { transform-box: fill-box; transform-origin: 50% 75%; animation: bob 1.05s ease-in-out infinite; }
+    .wing { transform-box: fill-box; transform-origin: 16% 70%; animation: flap .7s ease-in-out infinite alternate; }
+    .beak { transform-box: fill-box; transform-origin: 5% 60%; animation: beakNod 1.05s ease-in-out infinite; }
+    .road-dash { animation: road 1.05s linear infinite; }
+    .spark { animation: sparkle 1.4s ease-in-out infinite; }
+    .spark:nth-child(2) { animation-delay: .45s; }
+    .spark:nth-child(3) { animation-delay: .9s; }
+    @keyframes spin { to { rotate: 360deg; } }
+    @keyframes pedal { to { rotate: 360deg; } }
+    @keyframes legBack { 0%,100% { transform: rotate(24deg); } 50% { transform: rotate(-31deg); } }
+    @keyframes legFront { 0%,100% { transform: rotate(-27deg); } 50% { transform: rotate(30deg); } }
+    @keyframes bob { 0%,100% { transform: translateY(0) rotate(-.8deg); } 50% { transform: translateY(-8px) rotate(.8deg); } }
+    @keyframes flap { from { transform: rotate(-9deg); } to { transform: rotate(13deg); } }
+    @keyframes beakNod { 0%,100% { transform: rotate(-1deg); } 50% { transform: rotate(3deg); } }
+    @keyframes drift { from { transform: translateX(-75px); } to { transform: translateX(90px); } }
+    @keyframes road { from { transform: translateX(0); } to { transform: translateX(-126px); } }
+    @keyframes sparkle { 0%,100% { opacity: .15; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.15); } }
+  </style>
+</head>
+<body>
+  <svg viewBox="0 0 960 600" role="img" aria-label="一只鹈鹕快乐地骑着自行车">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#70d4e9"/><stop offset="1" stop-color="#d9f5d4"/></linearGradient>
+      <linearGradient id="road" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#384652"/><stop offset="1" stop-color="#17212b"/></linearGradient>
+      <filter id="soft"><feGaussianBlur stdDeviation="5"/></filter>
+    </defs>
+
+    <rect width="960" height="600" rx="30" fill="url(#sky)"/>
+    <circle cx="790" cy="100" r="51" fill="#ffe584"/>
+    <circle cx="790" cy="100" r="76" fill="#ffe584" opacity=".18" filter="url(#soft)"/>
+
+    <g class="cloud" fill="#fff" opacity=".8"><path d="M92 118c8-29 52-25 57 0 20-12 46 3 43 24H49c-3-20 22-35 43-24z"/></g>
+    <g class="cloud slow" fill="#fff"><path d="M630 169c6-20 37-22 46-2 18-9 38 4 35 20H586c-3-15 25-29 44-18z"/></g>
+    <g fill="#4fa173" opacity=".75"><path d="M0 350Q125 255 280 350T590 330T960 348V435H0z"/><path d="M0 390Q118 322 264 390T526 374T960 388V458H0z" fill="#2e855e"/></g>
+
+    <path d="M0 418H960V600H0z" fill="url(#road)"/>
+    <path d="M0 418H960" stroke="#dce5df" stroke-width="8" opacity=".72"/>
+    <g stroke="#f3d466" stroke-width="10" stroke-linecap="round" class="road-dash">
+      <path d="M-70 525h64M55 525h64M180 525h64M305 525h64M430 525h64M555 525h64M680 525h64M805 525h64M930 525h64"/>
+    </g>
+
+    <g transform="translate(300 86)">
+      <!-- bike -->
+      <g fill="none" stroke="#172934" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+        <circle class="wheel" cx="152" cy="360" r="81" stroke="#19242b"/><circle class="wheel" cx="402" cy="360" r="81" stroke="#19242b"/>
+        <circle cx="152" cy="360" r="66" stroke="#95b4ba" stroke-width="3" opacity=".75"/><circle cx="402" cy="360" r="66" stroke="#95b4ba" stroke-width="3" opacity=".75"/>
+        <path d="M152 360 244 210 322 360 152 360 276 360 244 210 379 209 322 360M244 210l-18-37M379 209l19-43 31 0" stroke="#f65e4f"/>
+        <path d="M222 171h-54M395 166h52" stroke="#172934"/>
+      </g>
+      <g class="pedal-arm" style="transform-origin:276px 360px" stroke="#172934" stroke-width="8" stroke-linecap="round">
+        <path d="M276 360l-31 30M276 360l31-30"/><path d="M229 393h33M291 327h33"/>
+      </g>
+
+      <!-- legs behind/forward -->
+      <g class="leg-back"><path d="M251 230Q258 296 307 330" fill="none" stroke="#ef9f50" stroke-width="27" stroke-linecap="round"/><path d="M302 326q22 0 29 12" fill="none" stroke="#273743" stroke-width="17" stroke-linecap="round"/></g>
+
+      <!-- Pelican body -->
+      <g class="pelican">
+        <path d="M191 130c-7-73 96-115 153-56 50 51 21 151-48 168-85 21-100-55-105-112z" fill="#f5f2df"/>
+        <path d="M203 183c-13-33 1-67 30-82 38 1 60 26 62 66-31 32-58 43-92 16z" fill="#3c5663"/>
+        <path d="M205 236c48-35 129-15 137 53 5 47-24 80-78 73-58-7-105-88-59-126z" fill="#f6f2db"/>
+        <path d="M231 235c39-18 78-8 104 22-30 7-57 30-77 64-28-17-43-52-27-86z" fill="#d8e1d8"/>
+        <path class="wing" d="M248 217c-51 0-87 42-67 91 25 1 66-9 99-48-5-22-16-34-32-43z" fill="#526f77"/>
+        <path class="wing" d="M202 283c17 6 39 0 56-17" fill="none" stroke="#334c58" stroke-width="7" stroke-linecap="round"/>
+
+        <!-- neck and head -->
+        <path d="M207 194c-57-25-62-100-18-135 42-33 100-3 105 38 6 50-28 93-87 97z" fill="#f6f2db"/>
+        <path d="M170 91c19-37 74-49 106-8-25-5-47 3-72 24z" fill="#304750"/>
+        <circle cx="220" cy="105" r="8" fill="#15212a"/><circle cx="222" cy="102" r="2.5" fill="#fff"/>
+        <path class="beak" d="M183 120c-55 4-90 20-105 47 32 10 78 3 114-14 18-8 27-22 26-34-11-1-22-1-35 1z" fill="#f4a346"/>
+        <path class="beak" d="M80 167c33 16 75 9 111-11-10 33-38 53-73 50-28-2-46-17-38-40z" fill="#e77a51"/>
+        <path d="M100 170c27 6 56 1 82-13" stroke="#b4513d" stroke-width="4" fill="none"/>
+
+        <!-- shirt -->
+        <path d="M216 213q54-21 105 11l-12 75q-61 25-113-3z" fill="#f0594f"/>
+        <path d="M239 215v81M274 209v91" stroke="#cf3f43" stroke-width="5" opacity=".7"/>
+        <!-- arms -->
+        <path d="M298 237q52 1 93-66" fill="none" stroke="#f1a55b" stroke-width="21" stroke-linecap="round"/>
+        <path d="M388 174l20-8" stroke="#f1a55b" stroke-width="15" stroke-linecap="round"/>
+        <path d="M219 240q-16 32 6 64" fill="none" stroke="#f1a55b" stroke-width="21" stroke-linecap="round"/>
+      </g>
+      <g class="leg-front"><path d="M276 248Q243 298 246 387" fill="none" stroke="#f1a55b" stroke-width="27" stroke-linecap="round"/><path d="M243 384q14 17 37 8" fill="none" stroke="#273743" stroke-width="17" stroke-linecap="round"/></g>
+    </g>
+
+    <g class="spark" fill="#fff" transform="translate(172 255)"><path d="M0-12 4-4 12 0 4 4 0 12-4 4-12 0-4-4z"/></g>
+    <g class="spark" fill="#fff" transform="translate(730 270)"><path d="M0-10 3-3 10 0 3 3 0 10-3 3-10 0-3-3z"/></g>
+    <g class="spark" fill="#fff" transform="translate(842 318)"><path d="M0-8 2-2 8 0 2 2 0 8-2 2-8 0-2-2z"/></g>
+    <text x="480" y="555" text-anchor="middle" font-size="20" font-weight="700" fill="#fff" opacity=".9" letter-spacing="5">PELICAN ON THE MOVE</text>
+  </svg>
+</body>
+</html>
